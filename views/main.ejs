@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+<%- include('_header', { title: 'Hello World!' }); %>
+
+</head>
+
+<body class="hold-transition skin-blue fixed sidebar-mini">
+<div class="wrapper">
+
+<%- include('_navbar'); %>
+
+<%- include('_sidebar'); %>
+
+<div class="content-wrapper">
+    @yield('main.content')
+</div>
+
+<%- include('_footer'); %>
+
+</div>
+
+<%- include('_scripts'); %>
+</body>
+
+</html>

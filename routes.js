@@ -4,8 +4,8 @@ var router = express.Router();
 /**
  * MIDDLEWARE
  */
-var middlewareLogin = require('./middleware/login');
-router.use('/', middlewareLogin.login);
+// var middlewareLogin = require('./middleware/login');
+// router.use('/', middlewareLogin.login);
 
 
 /**
@@ -18,12 +18,12 @@ router.use('/', middlewareLogin.login);
  */
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('main');
 });
 
 /* GET users listing. */
-router.get('/users/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/login/', function(req, res, next) {
+  res.render('login', { error: false });
 });
 
 module.exports = router;

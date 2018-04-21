@@ -1,6 +1,12 @@
-var createError = require('http-errors');
+
 var path = require('path');
+var createError = require('http-errors');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser')
+var cookieSession = require('cookie-session');
+var csurf = require('csurf');
 var express = require('express');
+
 var app = express();
 
 /**
@@ -12,18 +18,30 @@ app.set('view engine', 'ejs');
 /**
  * LOGGER
  */
-app.use(require('morgan')('dev'));
+app.use(logger('dev'));
 
 /**
  * STATIC FILES
  */
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/static/', express.static(path.join(__dirname, 'public')));
+
+/**
+ * SESSION
+ */
+app.use(cookieSession({
+  name: 'session',
+  secret: 'someRandomSecretString',
+  // Cookie Options
+  maxAge: 60 * 60 * 1000 // 1 hour
+}));
+// csrf parser
+app.use(csurf());
 
 /**
  * PARSER
  */
 // cookie parser
-app.use(require('cookie-parser')());
+app.use(cookieParser());
 // json parser
 app.use(express.json());
 // urlencoded parser
