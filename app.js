@@ -4,7 +4,6 @@ var createError = require('http-errors');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser')
 var cookieSession = require('cookie-session');
-var csurf = require('csurf');
 var express = require('express');
 
 var app = express();
@@ -26,18 +25,6 @@ app.use(logger('dev'));
 app.use('/static/', express.static(path.join(__dirname, 'public')));
 
 /**
- * SESSION
- */
-app.use(cookieSession({
-  name: 'session',
-  secret: 'someRandomSecretString',
-  // Cookie Options
-  maxAge: 60 * 60 * 1000 // 1 hour
-}));
-// csrf parser
-app.use(csurf());
-
-/**
  * PARSER
  */
 // cookie parser
@@ -46,6 +33,16 @@ app.use(cookieParser());
 app.use(express.json());
 // urlencoded parser
 app.use(express.urlencoded({ extended: false }));
+
+/**
+ * SESSION
+ */
+app.use(cookieSession({
+  name: 'session',
+  secret: 'someRandomSecretString',
+  // Cookie Options
+  maxAge: 60 * 60 * 1000 // 1 hour
+}));
 
 /**
  * ROUTER

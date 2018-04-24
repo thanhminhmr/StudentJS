@@ -31,12 +31,41 @@
 							<tr>
 								<th>#</th>
 								<th class="col-md-2 col-sm-3">Người gửi</th>
+								<th class="col-md-2 col-sm-3">Người nhận</th>
 								<th class="col-md-2 col-sm-3">Người liên quan</th>
 								<th class="col-md-8 col-sm-6">Bình luận</th>
 							</tr>
 							<%_ for (let i = 0; i < feedbacks.length; i++) { _%>
 							<tr>
 								<td><a href="/form/<%= feedbacks[i].relater %>"><span class="label label-<%= feedbacks[i].status === 0 ? 'danger' : 'primary' %>">#</span></a></td>
+								<td><%= feedbacks[i].sendername %></td>
+								<td><%= feedbacks[i].relatername %></td>
+								<td><%= feedbacks[i].message %></td>
+							</tr>
+							<%_ } _%>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Phản hồi</h3>
+					</div>
+					<div class="box-body table-responsive no-padding">
+						<table class="table table-hover">
+							<tr>
+								<th>#</th>
+								<th class="col-md-2 col-sm-3">Người gửi</th>
+								<th class="col-md-2 col-sm-3">Người nhận</th>
+								<th class="col-md-2 col-sm-3">Người liên quan</th>
+								<th class="col-md-8 col-sm-6">Bình luận</th>
+							</tr>
+							<%_ for (let i = 0; i < feedbacks.length; i++) { _%>
+							<tr>
+								<td><a href="/form/<%= feedbacks[i].relater %>"><span class="label label-<%= feedbacks[i].status === 0 ? 'danger' : 'primary' %>">#</span></td>
 								<td><%= feedbacks[i].sendername %></td>
 								<td><%= feedbacks[i].relatername %></td>
 								<td><%= feedbacks[i].message %></td>
