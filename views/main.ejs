@@ -1,24 +1,13 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	
 <%- include('_header', { title: 'Hello World!' }); %>
-
 </head>
-
 <body class="hold-transition skin-blue fixed sidebar-mini">
 <div class="wrapper">
-
 <%- include('_navbar'); %>
-
 <%- include('_sidebar'); %>
-
 <div class="content-wrapper">
-	<section class="content-header">
-		<h1>Dashboard <small>Control panel</small></h1>
-	</section>
-
 	<section class="content">
 		<div class="row">
 			<div class="col-xs-12">
@@ -34,12 +23,18 @@
 								<th class="col-md-2 col-sm-3">Người liên quan</th>
 								<th class="col-md-8 col-sm-6">Bình luận</th>
 							</tr>
-							<%_ for (let i = 0; i < feedbacks.length; i++) { _%>
+							<%_ for (let i = 0; i < datas.length; i++) { _%>
 							<tr>
-								<td><a href="/form/<%= feedbacks[i].relater %>"><span class="label label-<%= feedbacks[i].status === 0 ? 'danger' : 'primary' %>">#</span></a></td>
-								<td><%= feedbacks[i].sendername %></td>
-								<td><%= feedbacks[i].relatername %></td>
-								<td><%= feedbacks[i].message %></td>
+								<td>
+									<%_ if (datas[i].status === 0) { _%>
+									<a href="/form/<%= datas[i].relater %>" class="btn btn-xs btn-success">Mới</a>
+									<%_ } else { _%>
+									<a href="/form/<%= datas[i].relater %>" class="btn btn-xs">Xem</a>
+									<%_ } _%>
+								</td>
+								<td><%= datas[i].sendername %></td>
+								<td><%= datas[i].relatername %></td>
+								<td><%= datas[i].message %></td>
 							</tr>
 							<%_ } _%>
 						</table>
@@ -49,12 +44,8 @@
 		</div>
 	</section>
 </div>
-
 <%- include('_footer'); %>
-
 </div>
-
 <%- include('_scripts'); %>
 </body>
-
 </html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%- include('_header', { title: 'Hello World!' }); %>
+<style>
+div.form-group > label.required:after {
+	content: " *";
+	color: red;
+}
+</style>
+</head>
+<body class="hold-transition skin-blue fixed sidebar-mini">
+<div class="wrapper">
+<%- include('_navbar'); %>
+<%- include('_sidebar'); %>
+<div class="content-wrapper">
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+					<div class="box box-success box-solid">
+						<div class="box-header with-border">
+							<h3 class="box-title">Nhận xét điểm rèn luyện của sinh viên</h3>
+						</div>
+						<div class="box-body">
+							<div class="form-group">
+								<label>Họ và tên sinh viên:</label>
+								<p class="form-control"><%= data.fullname %></p>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>Điểm học tập:</label>
+										<p class="form-control"><%= data.studyingPoint %></p>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>Điểm chuyên cần:</label>
+										<p class="form-control"><%= data.regulationsPoint %></p>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>Điểm xã hội:</label>
+										<p class="form-control"><%= data.socialPoint %></p>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>Điểm khác:</label>
+										<p class="form-control"><%= data.otherPoint %></p>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Trạng thái:</label>
+								<p class="form-control">
+									<%_ if (data.student === null) { _%>
+									Chưa làm
+									<%_ } else if (data.status === 0) { _%>
+									Chờ sinh viên chỉnh sửa
+									<%_ } else if (data.status === 1) { _%>
+									Chờ lớp trưởng duyệt
+									<%_ } else if (data.status === 2) { _%>
+									Chờ cố vấn học tập duyệt
+									<%_ } else { _%>
+									Hoàn thành
+									<%_ } _%>
+								</p>
+							</div>
+						</div>
+						<%_ if (data.student === null || data.status === 0) { _%>
+						<div class="box-footer">
+							<div class="pull-right">
+								<button type="submit" class="btn btn-primary">
+									<%_ if (data.student === null) { _%>
+									Tạo
+									<%_ } else { _%>
+									Sửa
+									<%_ } _%>
+								</button>
+							</div>
+						</div>
+						<%_ } _%>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+</div>
+<%- include('_footer'); %>
+</div>
+<%- include('_scripts'); %>
+</body>
+</html>

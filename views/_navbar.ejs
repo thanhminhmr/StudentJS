@@ -13,24 +13,24 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
-                    <a class="dropdown-toggle" data-toggle="dropdown"><%= fullname %></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown"><%= session.fullname %></a>
                     <ul class="dropdown-menu">
                         <li class="user-body">
                             <div class="row">
                                 <span class="col-sm-4">Username:</span>
-                                <strong class="col-sm-8"><%= username %></strong>
+                                <strong class="col-sm-8"><%= session.username %></strong>
                             </div>
                             <div class="row">
                                 <span class="col-sm-4">Fullname:</span>
-                                <strong class="col-sm-8"><%= fullname %></strong>
+                                <strong class="col-sm-8"><%= session.fullname %></strong>
                             </div>
                             <div class="row">
                                 <span class="col-sm-4">Role:</span>
-                                <strong class="col-sm-8"><%= role %></strong>
+                                <strong class="col-sm-8"><%= session.role %></strong>
                             </div>
                             <div class="row">
                                 <span class="col-sm-4">Class:</span>
-                                <strong class="col-sm-8"><%= classname %></strong>
+                                <strong class="col-sm-8"><%= session.classname %></strong>
                             </div>
                         </li>
                         <li class="user-footer">

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%- include('_header', { title: 'Hello World!' }); %>
+<style>
+div.form-group > label.required:after {
+	content: " *";
+	color: red;
+}
+</style>
+</head>
+<body class="hold-transition skin-blue fixed sidebar-mini">
+<div class="wrapper">
+<%- include('_navbar'); %>
+<%- include('_sidebar'); %>
+<div class="content-wrapper">
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<form action="/form/<%= form.student %>" method="post"> 
+					<div class="box box-success box-solid">
+						<div class="box-header with-border">
+							<h3 class="box-title">Đánh giá điểm rèn luyện của sinh viên</h3>
+						</div>
+						<div class="box-body">
+							<div class="form-group">
+								<label>Họ và tên sinh viên:</label>
+								<p class="form-control"><%= form.fullname %></p>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<%_ if ((form.student === null || form.status === 0) && form.id === session.id)  { _%>
+										<label class="required">Điểm học tập:</label>
+										<input class="form-control" name="studyingPoint" type="number" min="0" max="20" required value="<%= form.studyingPoint %>">
+										<%_ } else { _%>
+										<label>Điểm học tập:</label>
+										<p class="form-control"><%= form.studyingPoint %></p>
+										<%_ } _%>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<%_ if ((form.student === null || form.status === 0) && form.id === session.id)  { _%>
+										<label class="required">Điểm chuyên cần:</label>
+										<input class="form-control" name="regulationsPoint" type="number" min="0" max="25" required value="<%= form.regulationsPoint %>">
+										<%_ } else { _%>
+										<label>Điểm chuyên cần:</label>
+										<p class="form-control"><%= form.regulationsPoint %></p>
+										<%_ } _%>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<%_ if ((form.student === null || form.status === 0) && form.id === session.id)  { _%>
+										<label class="required">Điểm xã hội:</label>
+										<input class="form-control" name="socialPoint" type="number" min="0" max="55" required value="<%= form.socialPoint %>">
+										<%_ } else { _%>
+										<label>Điểm xã hội:</label>
+										<p class="form-control"><%= form.socialPoint %></p>
+										<%_ } _%>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<%_ if ((form.student === null || form.status === 0) && form.id === session.id)  { _%>
+										<label class="required">Điểm khác:</label>
+										<input class="form-control" name="otherPoint" type="number" min="0" max="10" required value="<%= form.otherPoint %>">
+										<%_ } else { _%>
+										<label>Điểm khác:</label>
+										<p class="form-control"><%= form.otherPoint %></p>
+										<%_ } _%>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Trạng thái:</label>
+								<p class="form-control">
+									<%_ if (form.student === null) { _%>
+									Chưa làm
+									<%_ } else if (form.status === 0) { _%>
+									Chờ sinh viên chỉnh sửa
+									<%_ } else if (form.status === 1) { _%>
+									Chờ lớp trưởng duyệt
+									<%_ } else if (form.status === 2) { _%>
+									Chờ cố vấn học tập duyệt
+									<%_ } else { _%>
+									Hoàn thành
+									<%_ } _%>
+								</p>
+							</div>
+						</div>
+						<%_ if ((form.student === null || form.status === 0) && form.id === session.id) { _%>
+						<div class="box-footer">
+							<div class="pull-right">
+								<button type="submit" class="btn btn-primary">
+									<%_ if (form.student === null) { _%>
+									Tạo
+									<%_ } else { _%>
+									Sửa
+									<%_ } _%>
+								</button>
+							</div>
+						</div>
+						<%_ } else if ((form.status === 1 && session.role === 1) || (form.status === 2 && session.role === 2)) { _%>
+						<div class="box-footer">
+							<div class="pull-right">
+								<input name="status" type="hidden" value="<%= form.status %>">
+								<button type="submit" name="approve" value="0" class="btn btn-default">Trả về</button>
+								<button type="submit" name="approve" value="1" class="btn btn-primary">Duyệt</button>
+							</div>
+						</div>
+						<%_ } _%>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-success box-solid">
+					<div class="box-header with-border">
+						<h3 class="box-title">Phản hồi</h3>
+					</div>
+					<div class="box-body table-responsive no-padding">
+						<table class="table table-hover">
+							<tr>
+								<th class="col-sm-3">Người gửi</th>
+								<th class="col-sm-9">Bình luận</th>
+							</tr>
+							<%_ for (let i = 0; i < feedbacks.length; i++) { _%>
+							<tr>
+								<td><%= feedbacks[i].sendername %></td>
+								<td><%= feedbacks[i].message %></td>
+							</tr>
+							<%_ } _%>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%_ if ((form.student === null || form.status === 0) && form.id === session.id || session.role === 1 || session.role === 2) { _%>
+		<div class="row">
+			<div class="col-xs-12">
+				<form action="/feedback/<%= form.student %>" method="post"> 
+					<div class="box box-success box-solid">
+						<div class="box-header with-border">
+							<h3 class="box-title">Tạo phản hồi</h3>
+						</div>
+						<div class="box-body">
+							<div class="form-group">
+								<label class="required">Phản hồi:</label>
+								<input class="form-control" name="message" type="text" required>
+							</div>
+						</div>
+						<div class="box-footer">
+							<div class="pull-right">
+								<button type="submit" class="btn btn-primary">Gửi</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<%_ } _%>
+	</section>
+</div>
+<%- include('_footer'); %>
+</div>
+<%- include('_scripts'); %>
+</body>
+</html>
